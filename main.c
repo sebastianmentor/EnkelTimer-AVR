@@ -53,8 +53,14 @@ void timer1_init(void) {
 
     // CSxx - Clock Select
     // Prescaler = 1024
-    TCCR1B |= (1 << CS12) | (1 << CS10);
-
+    TCCR1B |= (1 << CS12) | (1 << CS10); // -- > xxxxx000 | 00000100 | 00000001 --> xxxxx101
+    // 00000001 << 0 --> 00000001 == (1 << CS10)
+    // 00000001 << 1 --> 00000010 
+    // 00000001 << 2 --> 00000100 == (1 << CS12)
+    // ...
+    // 00000001 << 8 --> 00000000
+    // ...
+    // 
     // TIMSK1 - Timer/Counter1 Interrupt Mask
     // TIFR1 - Timer/Counter1 Interrupt Flag
     // Aktivera overflow interrupt
